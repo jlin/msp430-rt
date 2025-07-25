@@ -16,10 +16,10 @@ jobs:
         with:
           profile: minimal
           toolchain: nightly
-          override: true
+          component: rust-src
 
       - name: Test macro library
         uses: actions-rs/cargo@v1
         with:
           command: test
-          args: -p msp430-rt-macros --features device
+          args: -Zbuild-std -p msp430-rt-macros --target=x86_64-unknown-linux-gnu --features device
