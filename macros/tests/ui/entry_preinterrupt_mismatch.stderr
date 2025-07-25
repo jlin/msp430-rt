@@ -12,4 +12,14 @@ note: function defined here
    |
 10 | #[entry(interrupt_enable(pre_interrupt = init))]
    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+11 | fn main(_i: bool) -> ! {
+   |         --------
    = note: this error originates in the attribute macro `entry` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused variable: `cs`
+ --> tests/ui/entry_preinterrupt_mismatch.rs:6:9
+  |
+6 | fn init(cs: CriticalSection) -> u32 {
+  |         ^^ help: if this is intentional, prefix it with an underscore: `_cs`
+  |
+  = note: `#[warn(unused_variables)]` on by default
