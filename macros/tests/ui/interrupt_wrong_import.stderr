@@ -1,12 +1,4 @@
-error[E0433]: failed to resolve: use of undeclared crate or module `interrupt`
-  --> tests/ui/interrupt_wrong_import.rs:11:1
-   |
-11 | #[interrupt]
-   | ^^^^^^^^^^^^ use of undeclared crate or module `interrupt`
-   |
-   = note: this error originates in the attribute macro `interrupt` (in Nightly builds, run with -Z macro-backtrace for more info)
-
-error[E0658]: msp430-interrupt ABI is experimental and subject to change
+error[E0658]: the extern "msp430-interrupt" ABI is experimental and subject to change
   --> tests/ui/interrupt_wrong_import.rs:11:1
    |
 11 | #[interrupt]
@@ -22,4 +14,13 @@ error[E0570]: `"msp430-interrupt"` is not a supported ABI for the current target
 11 | #[interrupt]
    | ^^^^^^^^^^^^
    |
+   = note: this error originates in the attribute macro `interrupt` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `interrupt`
+  --> tests/ui/interrupt_wrong_import.rs:11:1
+   |
+11 | #[interrupt]
+   | ^^^^^^^^^^^^ use of unresolved module or unlinked crate `interrupt`
+   |
+   = help: if you wanted to use a crate named `interrupt`, use `cargo add interrupt` to add it to your `Cargo.toml`
    = note: this error originates in the attribute macro `interrupt` (in Nightly builds, run with -Z macro-backtrace for more info)
