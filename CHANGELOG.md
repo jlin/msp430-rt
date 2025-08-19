@@ -7,6 +7,36 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [v0.4.1]- 2025-08-19
+
+### Added
+- The `interrupt` attribute now accepts a `wake_cpu` parameter, thanks to
+  a contribution from @RossPorter506.
+  - When annotated with `wake_cpu`, an interrupt will clear `SCG1`, `SCG0`,
+   `OSC_OFF`, and `CPU_OFF` in the copy of `SR` on the stack before jumping
+   into the actual interrupt handler; this requires
+   [naked functions](https://blog.rust-lang.org/2025/07/03/stabilizing-naked-functions/).
+- The vector table end address is now configurable, thanks to @robamu.
+  - This is useful for e.g. bootloaders and other applications which require
+    fine control over `.text` memory placement.
+
+### Changed
+- Update expected error messages in tests when using the `interrupt` and
+  `entry` macros.
+  - The error messages in recent nightlies (8-19-2025) are less helpful than
+    before. They may need to be improved on the `rustc` side.
+  - Additionally, the tests now require environment variables because of the
+    newly-added `.cargo/config.toml` at the workspace root.
+    - I haven't [felt well enough](https://github.com/rust-embedded/msp430-rt/pull/26#issuecomment-3120672859)
+      to debug/explain fully why both variables are required with _those specific
+      values_. But see [this cargo issue](https://github.com/rust-lang/cargo/issues/15347)
+      for a starting point.
+  - See additional [commentary](https://github.com/rust-embedded/msp430-rt/pull/26/files/d503be1510d0a179fa26b1b81762e4cbefc2456d)
+    for future-me and others.
+
+### Fixed
+- Fix CI to use `ubuntu-latest` rather than the retired `ubuntu-18.04` runner.
+
 ## [v0.4.0]- 2022-09-11
 
 ### Changed
@@ -169,7 +199,8 @@ Initial release
 [`cortex-m-rt`]: https://github.com/japaric/cortex-m-rt
 [`msp430`]: https://github.com/rust-embedded/msp430
 
-[Unreleased]: https://github.com/rust-embedded/msp430-rt/compare/msp_v0.4.0...HEAD
+[Unreleased]: https://github.com/rust-embedded/msp430-rt/compare/msp_v0.4.1...HEAD
+[v0.4.0]: https://github.com/rust-embedded/msp430-rt/compare/msp_v0.4.0...msp_v0.4.1
 [v0.4.0]: https://github.com/rust-embedded/msp430-rt/compare/msp_v0.3.1...msp_v0.4.0
 [v0.3.1]: https://github.com/rust-embedded/msp430-rt/compare/msp_v0.3.0...msp_v0.3.1
 [v0.3.0]: https://github.com/rust-embedded/msp430-rt/compare/msp_v0.2.5...msp_v0.3.0
