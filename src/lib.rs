@@ -356,7 +356,7 @@ pub fn heap_start() -> *mut u32 {
         static mut __sheap: u32;
     }
 
-    unsafe { &mut __sheap }
+    &raw mut __sheap
 }
 
 extern "msp430-interrupt" {
