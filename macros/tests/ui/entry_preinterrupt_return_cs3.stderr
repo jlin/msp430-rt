@@ -1,10 +1,16 @@
-error[E0597]: value does not live long enough
+error[E0716]: temporary value dropped while borrowed
   --> tests/ui/entry_preinterrupt_return_cs3.rs:10:1
    |
 10 | #[entry(interrupt_enable(pre_interrupt = init))]
    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^-
    | |                                              |
-   | |                                              value dropped here while still borrowed
-   | borrowed value does not live long enough
+   | |                                              temporary value is freed at the end of this statement
+   | creates a temporary value which is freed while still in use
+   | borrow later stored here
    |
    = note: this error originates in the attribute macro `entry` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: consider using a `let` binding to create a longer lived value
+   |
+10 + let binding = #[entry(interrupt_enable(pre_interrupt = init))];
+11 ~ binding
+   |
